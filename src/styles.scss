@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+
+$body-bg: #24242a;
+$body-color: #efefea;
+
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+@import 'node_modules/ag-grid-community/src/styles/ag-grid.scss';
+@import 'node_modules/ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss';
+
+.ag-theme-alpine {
+  @include ag-theme-alpine();
+}
