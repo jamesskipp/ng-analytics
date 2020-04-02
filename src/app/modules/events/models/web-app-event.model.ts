@@ -1,4 +1,5 @@
 export interface WebAppEvent {
+  id: string;
   action: string;
   label: string;
   component: {
@@ -13,7 +14,10 @@ export interface WebAppEvent {
     location: string;
   };
   time: number;
-  user: object;
+  user: {
+    id: string;
+    email: string;
+  };
   data: object;
   sessionToken: string;
 }

@@ -1,0 +1,98 @@
+<div class="card">
+  <div class="card-header justify-content">
+    <strong>Event</strong>
+    <span class="event-id float-right">{{ event.id }}</span>
+  </div>
+  <div class="card-body">
+    <!-- Action Card -->
+    <div class="card mt-3">
+      <div class="card-header">
+        <strong>Action</strong>
+        <span class="badge badge-pill badge-primary float-right">{{
+          event.action
+        }}</span>
+      </div>
+      <div class="card-body">
+        <table class="table table-sm table-borderless">
+          <tbody>
+            <tr>
+              <th scope="row">Date</th>
+              <td class="text-right">
+                <span class="event-date">{{
+                  getEventDate() | date: 'yyyy-MM-dd'
+                }}</span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Time</th>
+              <td class="text-right">
+                <span class="event-time">
+                  {{ getEventDate() | date: 'shortTime' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Component Card -->
+    <div class="card mt-3" *ngIf="event.component">
+      <div class="card-header">
+        <strong>Component</strong>
+        <span class="float-right">
+          <span class="event-html-element">
+            {{
+              event.component.name?.substring(
+                0,
+                event.component.name?.indexOf('.') + 1
+              )
+            }}</span
+          ><span class="event-html-class"
+            >{{
+              event.component.name?.substring(
+                event.component.name?.indexOf('.') + 1
+              )
+            }}
+          </span>
+        </span>
+      </div>
+      <div class="card-body">
+        <table class="table table-sm table-borderless">
+          <tr>
+            <th scope="row">Label</th>
+            <td class="text-right">"{{ event.label }}"</td>
+          </tr>
+        </table>
+        <!-- <hr /> -->
+        <!-- <div appComponentPreview [event]="event"></div> -->
+      </div>
+    </div>
+
+    <!-- User Card -->
+    <div class="card mt-3" *ngIf="event.user">
+      <div class="card-header">
+        <strong>User</strong>
+        <span class="float-right event-user-email">{{ event.user.email }}</span>
+      </div>
+      <div class="card-body">
+        <table class="table table-sm table-borderless">
+          <tbody>
+            <tr>
+              <th scope="row">ID</th>
+              <td class="text-right">
+                <span>{{ event.user.id }}</span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Email</th>
+              <td class="text-right">
+                <span>{{ event.user.email }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

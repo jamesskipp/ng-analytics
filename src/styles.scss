@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
-$body-bg: #24242a;
-$body-color: #efefea;
+// $body-bg: #24242a;
+// $body-color: #efefea;
 
 @import 'node_modules/bootstrap/scss/bootstrap';
 
@@ -10,4 +10,34 @@ $body-color: #efefea;
 
 .ag-theme-alpine {
   @include ag-theme-alpine();
+}
+
+.event-id {
+  color: darkorange;
+  font-weight: 600;
+}
+
+.event-html-element {
+  color: darkblue;
+  font-weight: 600;
+}
+
+.event-html-class {
+  color: darkred;
+  font-weight: 400;
+}
+
+.event-user-id {
+  color: purple;
+  font-weight: 600;
+}
+
+.event-user-email {
+  color: darkblue;
+  font-weight: 400;
+}
+
+.event-date {
+  color: darkgreen;
+  font-weight: 400;
 }

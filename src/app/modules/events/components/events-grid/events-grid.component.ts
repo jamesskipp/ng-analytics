@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+
+import * as fromApp from 'src/app/store/app.reducer';
+import * as EventsActions from '../../store/events.actions';
 
 @Component({
   selector: 'app-events-grid',
@@ -10,9 +12,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./events-grid.component.scss'],
 })
 export class EventsGridComponent implements OnInit {
-  rowData: Observable<object>;
+  events$: Observable<object>;
+  private gridApi;
 
-  constructor(private http: HttpClient) {}
+  constructor(private store: Store<fromApp.AppState>) {}
 
   columnDefs = [
     {
@@ -25,24 +28,27 @@ export class EventsGridComponent implements OnInit {
     { headerName: 'Label', field: 'label', sortable: true },
     {
       headerName: 'Component',
-      field: 'component',
-      valueFormatter: (params) => {
-        return params.value && params.value.name;
+      valueGetter: (params) => {
+        return params.data.component && params.data.component.name;
       },
+      sortable: true,
+      filter: true,
     },
     {
       headerName: 'Parent',
-      field: 'component',
-      valueFormatter: (params) => {
-        return params.value && params.value.parentName;
+      valueGetter: (params) => {
+        return params.data.component && params.data.component.parentName;
       },
+      sortable: true,
+      filter: true,
     },
     {
       headerName: 'URL',
-      field: 'page',
-      valueFormatter: (params) => {
-        return params.value && params.value.url;
+      valueGetter: (params) => {
+        return params.data.page && params.data.page.url;
       },
+      sortable: true,
+      filter: true,
     },
     {
       headerName: 'Date',
@@ -54,18 +60,35 @@ export class EventsGridComponent implements OnInit {
     },
     {
       headerName: 'User',
-      field: 'user',
-      valueFormatter: (params) => {
-        return params.value && params.value.email;
+      valueGetter: (params) => {
+        return params.data.user && params.data.user.email;
       },
+      sortable: true,
+      filter: true,
     },
   ];
 
   ngOnInit(): void {
-    this.rowData = this.http.get(environment.urls.webAppEvents.base).pipe(
-      tap((data) => {
-        console.debug(data);
+    this.events$ = this.store.select('events').pipe(
+      map((eventsState) => {
+        return eventsState.events;
       })
     );
+  }
+
+  onGridReady(params): void {
+    this.gridApi = params.api;
+  }
+
+  onSelectionChanged(event): void {
+    const selectedEvents = this.gridApi.getSelectedRows();
+
+    this.store.dispatch(new EventsActions.SelectEvents(selectedEvents));
+
+    if (selectedEvents && selectedEvents.length === 1) {
+      this.store.dispatch(new EventsActions.FocusEvent(selectedEvents[0]));
+    } else if (!selectedEvents || !selectedEvents.length) {
+      this.store.dispatch(new EventsActions.DefocusEvent());
+    }
   }
 }

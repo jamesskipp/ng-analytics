@@ -1,8 +1,10 @@
 <ag-grid-angular
   style="height: 500px;"
   class="ag-theme-alpine"
-  [rowData]="rowData | async"
+  [rowData]="events$ | async"
   [columnDefs]="columnDefs"
   rowSelection="multiple"
+  (selectionChanged)="onSelectionChanged($event)"
+  (gridReady)="onGridReady($event)"
 >
 </ag-grid-angular>
