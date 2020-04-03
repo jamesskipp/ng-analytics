@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as fromApp from 'src/app/store/app.reducer';
-import * as EventsActions from '../../store/events.actions';
+import * as EventsActions from './store/events.actions';
 import { Store } from '@ngrx/store';
 
 @Component({

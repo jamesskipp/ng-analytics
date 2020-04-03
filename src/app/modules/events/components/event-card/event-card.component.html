@@ -6,13 +6,18 @@
   <div class="card-body">
     <!-- Action Card -->
     <div class="card mt-3">
-      <div class="card-header">
-        <strong>Action</strong>
-        <span class="badge badge-pill badge-primary float-right">{{
-          event.action
-        }}</span>
+      <div class="card-header d-flex justify-content-center">
+        <strong class="mr-auto">Action</strong>
+        <fa-icon
+          class="pointer"
+          (click)="openOrClose('action')"
+          [icon]="faBars"
+        ></fa-icon>
+        <div class="ml-auto">
+          <span class="badge badge-pill badge-primary">{{ event.action }}</span>
+        </div>
       </div>
-      <div class="card-body">
+      <div class="card-body" [@slideOpen]="actionCardState">
         <table class="table table-sm table-borderless">
           <tbody>
             <tr>
@@ -38,9 +43,10 @@
 
     <!-- Component Card -->
     <div class="card mt-3" *ngIf="event.component">
-      <div class="card-header">
-        <strong>Component</strong>
-        <span class="float-right">
+      <div class="card-header d-flex justify-content-center">
+        <strong class="mr-auto">Component</strong>
+        <fa-icon class="" [icon]="faBars"></fa-icon>
+        <div class="ml-auto">
           <span class="event-html-element">
             {{
               event.component.name?.substring(
@@ -55,7 +61,7 @@
               )
             }}
           </span>
-        </span>
+        </div>
       </div>
       <div class="card-body">
         <table class="table table-sm table-borderless">

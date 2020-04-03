@@ -12,6 +12,10 @@
   @include ag-theme-alpine();
 }
 
+body {
+  overflow: hidden;
+}
+
 .event-id {
   color: darkorange;
   font-weight: 600;

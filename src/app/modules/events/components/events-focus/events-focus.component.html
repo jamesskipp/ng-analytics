@@ -1,4 +1,5 @@
-<app-event-card
-  [event]="focusedEvent | async"
-  *ngIf="focusedEvent | async"
-></app-event-card>
+<div class="row">
+  <div class="col" @myInsertRemoveTrigger *ngIf="focusedEvent | async">
+    <app-event-card [event]="focusedEvent | async"></app-event-card>
+  </div>
+</div>

@@ -1,16 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as fromApp from 'src/app/store/app.reducer';
-import * as EventsActions from '../../store/events.actions';
 import { Store } from '@ngrx/store';
-import { tap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { WebAppEvent } from '../../models/web-app-event.model';
 import { Observable } from 'rxjs';
+import {
+  style,
+  state,
+  trigger,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-events-focus',
   templateUrl: './events-focus.component.html',
   styleUrls: ['./events-focus.component.scss'],
+  animations: [
+    trigger('myInsertRemoveTrigger', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('75ms', style({ transform: 'translateX(0)' })),
+      ]),
+      transition(':leave', [
+        animate('75ms', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class EventsFocusComponent implements OnInit {
   focusedEvent: Observable<WebAppEvent>;
